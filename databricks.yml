@@ -4,6 +4,12 @@ bundle:
 include:
   - resources/*.yml
 
+artifacts:
+  default:
+    type: whl
+    build: python -m build --wheel
+    dynamic_version: true
+
 targets:
   dev:
     default: true

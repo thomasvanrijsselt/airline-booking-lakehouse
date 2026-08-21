@@ -11,10 +11,14 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "build>=1.2,<2",
     "pyspark==4.0.0",
     "pytest>=8,<9",
     "ruff>=0.12,<1",
 ]
+
+[project.scripts]
+ingest-bronze = "airline_booking_lakehouse.bronze:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

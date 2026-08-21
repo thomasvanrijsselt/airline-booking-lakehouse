@@ -1,0 +1,25 @@
+resources:
+  jobs:
+    airline_booking_job:
+      name: ${bundle.target}-${bundle.name}
+
+      tasks:
+        - task_key: ingest_bronze
+          python_wheel_task:
+            package_name: airline_booking_lakehouse
+            entry_point: ingest-bronze
+            parameters:
+              - --source-path
+              - /Volumes/workspace/airline_booking_lakehouse/landing/incoming
+              - --checkpoint-path
+              - /Volumes/workspace/airline_booking_lakehouse/landing/checkpoints/bronze
+              - --table-name
+              - workspace.airline_booking_lakehouse.bronze_booking_events
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+            dependencies:
+              - ../dist/*.whl
