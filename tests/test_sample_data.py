@@ -10,9 +10,7 @@ def load_events() -> dict[str, list[dict]]:
 
     for path in sorted(SAMPLE_DATA_DIR.glob("batch_*.json")):
         batches[path.name] = [
-            json.loads(line)
-            for line in path.read_text().splitlines()
-            if line.strip()
+            json.loads(line) for line in path.read_text().splitlines() if line.strip()
         ]
 
     return batches
@@ -31,22 +29,18 @@ def test_expected_batches_and_record_counts() -> None:
 
 def test_dataset_contains_duplicate_event() -> None:
     events = [
-        event
-        for batch_events in load_events().values()
-        for event in batch_events
+        event for batch_events in load_events().values() for event in batch_events
     ]
     event_ids = [event["event_id"] for event in events]
 
     assert len(event_ids) == 13
     assert len(set(event_ids)) == 12
     assert event_ids.count("evt-002") == 2
-    
+
 
 def test_dataset_contains_deliberately_invalid_events() -> None:
     events = [
-        event
-        for batch_events in load_events().values()
-        for event in batch_events
+        event for batch_events in load_events().values() for event in batch_events
     ]
     events_by_id = {event["event_id"]: event for event in events}
 
@@ -60,14 +54,10 @@ def test_batch_three_contains_late_booking_update() -> None:
     batches = load_events()
 
     earlier_processed_update = next(
-        event
-        for event in batches["batch_002.json"]
-        if event["event_id"] == "evt-005"
+        event for event in batches["batch_002.json"] if event["event_id"] == "evt-005"
     )
     late_arriving_update = next(
-        event
-        for event in batches["batch_003.json"]
-        if event["event_id"] == "evt-009"
+        event for event in batches["batch_003.json"] if event["event_id"] == "evt-009"
     )
 
     assert late_arriving_update["booking_id"] == earlier_processed_update["booking_id"]
