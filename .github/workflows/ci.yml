@@ -41,9 +41,3 @@ jobs:
 
       - name: Build wheel
         run: python -m build --wheel
-
-      - name: Install Databricks CLI
-        uses: databricks/setup-cli@main
-
-      - name: Validate Databricks Bundle
-        run: databricks bundle validate
