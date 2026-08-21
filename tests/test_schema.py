@@ -33,4 +33,3 @@ def test_amount_uses_fixed_decimal_type() -> None:
 
 def test_source_fields_are_nullable() -> None:
     assert all(field.nullable for field in BOOKING_EVENT_SCHEMA)
-
