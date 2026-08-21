@@ -20,6 +20,7 @@ dev = [
 [project.scripts]
 ingest-bronze = "airline_booking_lakehouse.bronze:main"
 build-silver = "airline_booking_lakehouse.silver:main"
+build-gold = "airline_booking_lakehouse.gold:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
